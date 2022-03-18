@@ -3,14 +3,34 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
+import { BreadcrumbsComponent } from './header/breadcrumbs/breadcrumbs.component';
+import { MainPageComponent } from './header/main-page/main-page.component';
+import { DocsComponent } from './header/docs/docs.component';
+import { FaqComponent } from './header/faq/faq.component';
+import { SettingsComponent } from './header/settings/settings.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    BreadcrumbsComponent,
+    MainPageComponent,
+    DocsComponent,
+    FaqComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatToolbarModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
