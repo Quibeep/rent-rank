@@ -4,31 +4,31 @@
 .menu {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-
 }
 .icons-oneline {
  display:inline-block;
  vertical-align: middle;
 }
 
-.menu2 {
-  display: flex;
-  align-items: center;
-}
 .nav {
  margin-left: auto;
  order: 2;
 }
 
+.justify-c{
+  justify-content: space-around;
+}
+
 .transparent-button {
-  border: none;
+  border:blueviolet 2.5px solid;
   border-radius: 5px;
+  background: none;
 }
 
 
 // button hover mialo zmieniac background color i kursor jak sie najezdza na przycisk, ogolnie to troche nagrzebalem przy tych iconach, zeby je zrobic w formie przycisku. Rokziminy razem wierze
 //
-// a.button:hover{
-//   background: #383;
-// }
+button:hover{
+  background: rgba(152, 60, 170, 0.795);
+  transition: 0.7s;
+}
