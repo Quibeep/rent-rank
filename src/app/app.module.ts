@@ -13,6 +13,8 @@ import { MainPageComponent } from './header/main-page/main-page.component';
 import { DocsComponent } from './header/docs/docs.component';
 import { FaqComponent } from './header/faq/faq.component';
 import { SettingsComponent } from './header/settings/settings.component';
+import { PopupComponent } from './header/popup/popup.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { SettingsComponent } from './header/settings/settings.component';
     MainPageComponent,
     DocsComponent,
     FaqComponent,
-    SettingsComponent
+    SettingsComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { SettingsComponent } from './header/settings/settings.component';
     MatToolbarModule,
     MatIconModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

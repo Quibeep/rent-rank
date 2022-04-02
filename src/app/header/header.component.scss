@@ -4,3 +4,13 @@ a:hover{
 a {
   text-decoration: none !important;
 }
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+ margin-left: auto;
+ order: 2;
+}
