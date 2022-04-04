@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -8,9 +9,21 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss']
 })
-export class PopupComponent {
-  @Input() name:any ;
+export class PopupComponent implements OnInit{
+loginForm: FormGroup;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal) {
 
+  }
+
+  ngOnInit(): void {
+    this.loginForm = new FormGroup ({
+      'userEmail': new FormControl(null,[Validators.required, Validators.email]),
+      'userPassword': new FormControl(null, [Validators.required])
+    });
+  }
+
+  onSubmit() {
+    console.log(this.loginForm)
+  }
 }

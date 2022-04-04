@@ -1,11 +1,25 @@
 
 <div class="modal-header">
-  <h4 class="modal-title">Hi there!</h4>
+  <h2 class="modal-title">Login</h2>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 <div class="modal-body">
-  <p>Hello, {{name}}!</p>
+  <div class="mb-3 row">
+    <label for="email" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="email"formControlName="userEmail" >
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Hasło</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword" formControlName="userPassword">
+    </div>
+  </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  <button type="submit" class="btn btn-outline-dark">Zaloguj</button>
+  <button type="button" class="btn btn-outline-dark" [routerLink]="['/registration']" (click)="activeModal.close()">Rejestracja</button>
 </div>
+</form>

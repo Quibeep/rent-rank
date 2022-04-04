@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   open() {
     const modalRef = this.modalService.open(PopupComponent, {centered:true});
-    modalRef.componentInstance.name = 'World';
+
   }
 
   ngOnInit(): void {
