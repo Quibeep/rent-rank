@@ -5,6 +5,7 @@ import { FaqComponent } from './header/faq/faq.component';
 import { DocsComponent } from './header/docs/docs.component';
 import { SettingsComponent } from './header/settings/settings.component';
 import { PopupComponent } from './header/popup/popup.component';
+import { RegistrationComponent } from './header/registration/registration.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent},
@@ -12,7 +13,7 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent},
   { path: 'settings', component: SettingsComponent},
   { path: 'login', component: PopupComponent},
-
+  { path: 'registration', component: RegistrationComponent},
 ];
 
 @NgModule({

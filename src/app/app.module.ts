@@ -17,6 +17,8 @@ import { FaqComponent } from './header/faq/faq.component';
 import { SettingsComponent } from './header/settings/settings.component';
 import { PopupComponent } from './header/popup/popup.component';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegistrationComponent } from './header/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DocsComponent,
     FaqComponent,
     SettingsComponent,
-    PopupComponent
+    PopupComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatIconModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [
     NgbActiveModal
