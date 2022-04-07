@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +16,7 @@ import { DocsComponent } from './header/docs/docs.component';
 import { FaqComponent } from './header/faq/faq.component';
 import { SettingsComponent } from './header/settings/settings.component';
 import { PopupComponent } from './header/popup/popup.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatButtonModule,
     NgbModule
   ],
-  providers: [],
+  providers: [
+    NgbActiveModal
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
