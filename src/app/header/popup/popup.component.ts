@@ -10,7 +10,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./popup.component.scss']
 })
 export class PopupComponent implements OnInit{
-loginForm: FormGroup;
+loginForm: FormGroup = new FormGroup ({});
 
   constructor(public activeModal: NgbActiveModal) {
 
@@ -24,6 +24,6 @@ loginForm: FormGroup;
   }
 
   onSubmit() {
-    console.log(this.loginForm)
+    console.log(this.loginForm);
   }
 }

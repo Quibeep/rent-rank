@@ -6,6 +6,7 @@ import { DocsComponent } from './header/docs/docs.component';
 import { SettingsComponent } from './header/settings/settings.component';
 import { PopupComponent } from './header/popup/popup.component';
 import { RegistrationComponent } from './header/registration/registration.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent},
@@ -14,6 +15,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent},
   { path: 'login', component: PopupComponent},
   { path: 'registration', component: RegistrationComponent},
+  { path: 'not-found', component: PageNotFoundComponent},
+  { path: '**', redirectTo: '/not-found'},
 ];
 
 @NgModule({

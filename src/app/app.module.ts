@@ -19,6 +19,9 @@ import { PopupComponent } from './header/popup/popup.component';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './header/registration/registration.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ValidatorService } from './header/registration/password.validator';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { RegistrationComponent } from './header/registration/registration.compon
     FaqComponent,
     SettingsComponent,
     PopupComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,7 @@ import { RegistrationComponent } from './header/registration/registration.compon
     ReactiveFormsModule
   ],
   providers: [
-    NgbActiveModal
+    NgbActiveModal, ValidatorService
   ],
   bootstrap: [AppComponent]
 })
