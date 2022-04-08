@@ -49,7 +49,7 @@
             placeholder="Potwierdź hasło"
             formControlName="passwordConfirm"
           />
-          <div >Hasła muszą sie zgadzać</div>
+          <div *ngIf="!passwordValid() && registrationForm.get('passwordConfirm')?.touched" style="color: red;">*Hasła muszą sie zgadzać</div>
         </div>
         <div class="form-group m-2">
           <input
@@ -71,11 +71,13 @@
         </div>
         <div class="form-group m-2">
           <input
+            zipValid
             id="zipCode"
             type="text"
             class="form-control text-center"
             placeholder="Kod pocztowy"
             formControlName="zipCode"
+            maxlength="6"
           />
           <hr />
         </div>
