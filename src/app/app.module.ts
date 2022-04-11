@@ -20,7 +20,7 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './header/registration/registration.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ValidatorService } from './header/registration/password.validator';
+import { zipDirective } from './header/registration/zipcode-dir';
 
 
 @NgModule({
@@ -34,7 +34,8 @@ import { ValidatorService } from './header/registration/password.validator';
     SettingsComponent,
     PopupComponent,
     RegistrationComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    zipDirective
   ],
   imports: [
     BrowserModule,
@@ -47,7 +48,7 @@ import { ValidatorService } from './header/registration/password.validator';
     ReactiveFormsModule
   ],
   providers: [
-    NgbActiveModal, ValidatorService
+    NgbActiveModal,
   ],
   bootstrap: [AppComponent]
 })
