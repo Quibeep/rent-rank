@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { RegForm } from './form.model';
+
 
 
 
@@ -14,7 +17,7 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup = new FormGroup({});
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -24,7 +27,7 @@ export class RegistrationComponent implements OnInit {
       'email': new FormControl(null,[Validators.required,Validators.email]),
       'city': new FormControl(null,[Validators.required,]),
       'street': new FormControl(null,[Validators.required,]),
-      'zipCode': new FormControl(null,[Validators.required, Validators.max(5)]),
+      'zipCode': new FormControl(null,[Validators.required,]),
       'password': new FormControl(null,[Validators.required,]),
       'passwordConfirm': new FormControl(null,[Validators.required, this.onlyChar().bind(this)]),
     },
@@ -43,9 +46,19 @@ export class RegistrationComponent implements OnInit {
   }
 
 
-  registrationSubmit() {
-    console.log(this.registrationForm)
+  registrationSubmit(  firstName: string, lastName: string, email: string, password: string, passwordConfirm: string, city: string, street: string, zipCode: string,) {
+    const fullForm : RegForm = {firstName: firstName, lastName: lastName, email: email, password: password, passwordConfirm: passwordConfirm, city: city, street: street, zipCode: zipCode }
+    this.http.put('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration.json', fullForm).subscribe(responseData =>{
+      console.log(responseData);
+    });
+    console.log(this.registrationForm);
   }
+
+  // onRegistrationSubmit(formData: {firstName: string; lastName: string}) {
+  //   this.http.post('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration.json', formData).subscribe(responseData => {
+  //     console.log(responseData)
+  //   });
+  // }
 
   onlyChar(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
