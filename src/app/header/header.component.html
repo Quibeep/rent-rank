@@ -15,7 +15,13 @@
       <mat-icon>share</mat-icon>
     </button>
     <div class="menu nav">
-    <button mat-raised-button (click)="open()">Zaloguj</button>
+      <!-- przycisk powinien sie zmieniac w zaleznosci od tego czy uzytkownik jest zalogowany - poprawic binding -->
+      <span *ngIf="!isLoggedin">
+        <button mat-raised-button (click)="open()">Zaloguj</button>
+      </span>
+    <span *ngIf="isLoggedin === true" (LoggedIn)="isLoggedIn($event)">
+      <button mat-raised-button >Wyloguj</button>
+    </span>
     </div>
   </mat-toolbar>
 </p>
