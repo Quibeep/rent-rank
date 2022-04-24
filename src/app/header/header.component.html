@@ -16,11 +16,11 @@
     </button>
     <div class="menu nav">
       <!-- przycisk powinien sie zmieniac w zaleznosci od tego czy uzytkownik jest zalogowany - poprawic binding -->
-      <span *ngIf="!isLoggedin">
+      <span *ngIf="!(this.authService.isLoggedIn |async)">
         <button mat-raised-button (click)="open()">Zaloguj</button>
       </span>
-    <span *ngIf="isLoggedin === true" (LoggedIn)="isLoggedIn($event)">
-      <button mat-raised-button >Wyloguj</button>
+    <span *ngIf="this.authService.isLoggedIn |async" >
+      <button mat-raised-button (click)="onLogout()" >Wyloguj</button>
     </span>
     </div>
   </mat-toolbar>

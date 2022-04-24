@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import { RegForm } from './form.model';
 import * as shajs from 'sha.js';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../authentication-service';
 
 
 
@@ -14,9 +15,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup = new FormGroup({});
+  loading = false;
+  error: string = null;
+  formState: boolean
 
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute ) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute, private authService: AuthService ) {
   }
 
   ngOnInit(): void {
@@ -50,12 +54,31 @@ export class RegistrationComponent implements OnInit {
     this.http.post('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration.json', fullForm).subscribe(responseData =>{
       console.log(responseData);
     });
+    const emailVal = this.registrationForm.get('email').value;
+    const passwordVal = this.registrationForm.get('password').value;
+    this.loading = true;
+    this.authService.signup(emailVal, passwordVal).subscribe(resData => {
+      this.loading = false;
+      this.formState = true;
+      console.log(resData);
+    }, errorMessage => {
+      this.loading = false;
+      this.formState = false;
+      this.error = errorMessage;
+      console.log(errorMessage);
+    }
+    );
     if (this.registrationForm.valid) {
       console.log("Form Submitted!");
       this.registrationForm.reset();
       // setTimeout(this.redirectAfterSign,1000)
     }
     console.log(this.registrationForm);
+  }
+
+  formSubmit() {
+    this.registrationSubmit;
+
   }
 
   //nadal nie dziala

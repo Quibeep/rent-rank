@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from './authentication-service';
 import { PopupComponent } from './popup/popup.component';
 
 
@@ -10,9 +11,8 @@ import { PopupComponent } from './popup/popup.component';
 })
 export class HeaderComponent implements OnInit {
 
-  isLoggedin: boolean;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, public authService: AuthService) { }
 
   open() {
     const modalRef = this.modalService.open(PopupComponent, {centered:true});
@@ -22,8 +22,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //proba zmiany propetki
-  getLoginInfo(logInfo: boolean) {
-    logInfo = this.isLoggedin
+  onLogout() {
+    this.authService.switchloginState(false);
   }
+
 }

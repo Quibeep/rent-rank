@@ -22,6 +22,7 @@ import { RegistrationComponent } from './header/registration/registration.compon
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { zipDirective } from './header/registration/zipcode-dir';
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerComponent } from './shared/loading-spinner.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     PopupComponent,
     RegistrationComponent,
     PageNotFoundComponent,
-    zipDirective
+    zipDirective,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

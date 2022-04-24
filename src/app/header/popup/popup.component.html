@@ -1,5 +1,8 @@
 <div class="modal-header header-s">
   <div class="modal-title mt-3 header-title">Logowanie</div>
+  <div *ngIf="loading" style="text-align: center;">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
   <button
     type="button"
     class="btn-close"
@@ -35,7 +38,7 @@
   </div>
   <div class="modal-footer">
     <!-- podczas klikniecia onLog() powinien byc emitowany event, ktory zostanie zebrany przez drugi komponent -->
-    <button type="submit" class="btn btn-outline-dark" (click)="onLog(); activeModal.close() "  [disabled]="!loginForm.valid">Zaloguj</button>
+    <button type="submit" class="btn btn-outline-dark" (click)=" onLogin()"  [disabled]="!loginForm.valid">Zaloguj</button>
     <button
       type="button"
       class="btn btn-outline-dark"
@@ -45,4 +48,7 @@
       Rejestracja
     </button>
   </div>
+  <div class="alert alert-danger" role="alert" *ngIf="error" style="text-align: center;" >
+    <b>{{error}}</b>
+    </div>
 </form>

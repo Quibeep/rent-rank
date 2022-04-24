@@ -1,5 +1,9 @@
 <div class="container" style="margin-top: 100px">
-  <form [formGroup]="registrationForm" (ngSubmit)="registrationSubmit(firstName.value, lastName.value, email.value, password.value, passwordConfirm.value, city.value, street.value, zipCode.value)">
+  <div *ngIf="loading" style="text-align: center;">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <form [formGroup]="registrationForm" (ngSubmit)="registrationSubmit(firstName.value, lastName.value, email.value, password.value, passwordConfirm.value, city.value, street.value, zipCode.value)"
+  *ngIf="!loading">
     <div class="row justify-content-center">
       <div class="col-6 text-center border border-1 rounded shadow">
         <h2>Formularz rejestracyjny</h2>
@@ -99,6 +103,11 @@
         <div class="row">
           <div class="d-grid gap-2">
             <button class="btn mb-2" type="submit" (click)="redirectAfterSec()" [disabled]="!registrationForm.valid">Rejestracja</button>
+            <div class="alert alert-success" role="alert" *ngIf="formState === true">
+              <b>Rejestracja ukończona pomyślnie</b></div>
+              <div class="alert alert-danger" role="alert" *ngIf="formState === false">
+                <b>{{error}}</b>
+              </div>
           </div>
         </div>
       </div>
