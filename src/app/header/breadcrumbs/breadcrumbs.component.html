@@ -1,23 +1,29 @@
+<div class="row" style="display: flex;">
+  <div class="col-8">
+    <div class="menu justify-c">
+      <button class="menu transparent-button" style="margin-right: 25px;" [routerLink]="['/']">
+      <mat-icon>home</mat-icon>
+      <a >Strona głowna</a>
+      </button>
+      <button class="menu transparent-button" style="margin-right: 25px;"  [routerLink]="['/docs']" >
+      <mat-icon>document_scanner</mat-icon>
+      <a >Dokumenty</a>
+      </button >
+      <button class="menu transparent-button" style="margin-right: 25px;" [routerLink]="['/faq']">
+      <mat-icon>question_mark</mat-icon>
+      <a>FAQ</a>
+      </button>
+      </div>
+  </div>
+  <div class="col-4">
+    <div class="menu nav end" *ngIf="isAuthenticated">
+      <button class="menu transparent-button" [routerLink]="['/settings']">
+    <mat-icon>settings</mat-icon>
+    <a>Ustawienia</a>
+    </button>
+    </div>
+  </div>
 
-<div class="menu justify-c">
-<button class="menu transparent-button" style="margin-right: 25px;" [routerLink]="['/']">
-<mat-icon>home</mat-icon>
-<a >Strona głowna</a>
-</button>
-<button class="menu transparent-button" style="margin-right: 25px;"  [routerLink]="['/docs']" >
-<mat-icon>document_scanner</mat-icon>
-<a >Dokumenty</a>
-</button >
-<button class="menu transparent-button" style="margin-right: 25px;" [routerLink]="['/faq']">
-<mat-icon>question_mark</mat-icon>
-<a>FAQ</a>
-</button>
-<div class="menu nav">
-  <button class="menu transparent-button" [routerLink]="['/settings']">
-<mat-icon>settings</mat-icon>
-<a>Ustawienia</a>
-</button>
-</div>
 </div>
 
 

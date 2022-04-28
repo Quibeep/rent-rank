@@ -28,6 +28,7 @@
             class="form-control"
             id="email"
             formControlName="userEmail"
+            maxlength="26"
           />
           <span *ngIf="!loginForm.get('loginData.userEmail').valid && loginForm.get('loginData.userEmail').touched" style="color: red;">*Pole jest wymagane</span>
         </div>
@@ -50,7 +51,7 @@
         <div class="col-2"></div>
       </div>
     </div>
-    <div class="mb-3 row in-line" *ngIf="registerMode === true">
+    <div class="row in-line" *ngIf="registerMode === true">
       <div class="col-4">
         <label for="confirmPassword" class="in-line">Potwierdź hasło</label>
       </div>
@@ -68,26 +69,41 @@
     <div class="row">
       <div class="col-4"></div>
       <div class="col-8">
-        <span *ngIf="!passwordValid() && loginForm.get('passwordConfirm')?.touched && !loginForm.get('passwordConfirm').valid" style="color: red;">*Hasła muszą sie zgadzać</span>
+        <ng-container *ngIf="!passwordValid() && loginForm.get('passwordConfirm')?.touched && loginForm.get('passwordConfirm').hasError('passwordError')" >
+        <span style="color: red;">*Hasła muszą sie zgadzać</span>
         <br>
-        <span *ngIf="loginForm.get('passwordConfirm')?.touched && !loginForm.get('passwordConfirm').errors.required" style="color: red;">*Pole jest wymagane</span>
+        </ng-container>
+        <span *ngIf="loginForm.get('passwordConfirm')?.touched && loginForm.get('passwordConfirm').hasError('required')" style="color: red;">*Pole jest wymagane</span>
+
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button *ngIf="lockLogin === false" type="submit" class="btn btn-outline-dark" (click)=" onLogin()"  [disabled]=" !loginForm.get('loginData').valid">Zaloguj</button>
+    <div class="col-12 center-button">
     <button
+     *ngIf="lockLogin === false" type="submit" class="btn btn-outline-dark" (click)=" onLogin()"  [disabled]=" !loginForm.get('loginData').valid" id="button1"
+     >Zaloguj
+    </button>
+    <button
+      id="button2"
       type="button"
       class="btn btn-outline-dark"
       (click)="onRegister()"
       [disabled]="!loginForm.valid"
+      *ngIf="lockLogin === true"
     >
       Zarejestruj
     </button>
   </div>
+  </div>
   <div class="alert alert-success" role="alert" *ngIf="formState === true">
-    <b>Rejestracja ukończona pomyślnie</b></div>
+    <div class="col-12 center-button">
+      <b>Rejestracja ukończona pomyślnie</b>
+    </div>
+    </div>
     <div class="alert alert-danger" role="alert" *ngIf="formState === false">
-      <b>{{error}}</b>
+      <div class="col-12 center-button">
+        <b>{{error}}</b>
+      </div>
     </div>
 </form>
