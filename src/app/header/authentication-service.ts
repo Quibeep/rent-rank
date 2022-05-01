@@ -5,6 +5,7 @@ import { throwError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
+
 import { User } from './user.model';
 
 
@@ -23,6 +24,7 @@ export class AuthService {
   isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   user = new BehaviorSubject<User>(null);
+  private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient) {}
 
@@ -72,10 +74,32 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
+    this.autoLogout(expiresIn *1000);
+    localStorage.setItem('userInfo', JSON.stringify(user));
   }
 
   switchloginState(newValue: boolean) {
     this.isLoggedIn.next(newValue);
+  }
+
+  autoLogin() {
+  const userInfo: {
+   email: string;
+   id: string;
+   _token: string;
+   _tokenExpirationDate: string;
+  } = JSON.parse(localStorage.getItem('userInfo'));
+  if (!userInfo) {
+    return;
+  }
+
+  const existingUser = new User(userInfo.email, userInfo.id, userInfo._token, new Date(userInfo._tokenExpirationDate));
+
+  if (existingUser.token) {
+    this.user.next(existingUser);
+    const expirationDuration = new Date(userInfo._tokenExpirationDate).getTime() - new Date().getTime();
+    this.autoLogout(expirationDuration);
+  }
   }
 
   login(email: string, password: string) {
@@ -105,12 +129,25 @@ export class AuthService {
               errorMessage = 'Konto zostało dezaktywowane';
           }
           return throwError(errorMessage);
-        }),tap((responseData) => {
+        }),
+        tap((responseData) => {
           this.authentication(responseData.email, responseData.localId, responseData.idToken, +responseData.expiresIn)
         })
       );
    }
     logout() {
-      this.user.next(null)
+      this.user.next(null);
+      localStorage.removeItem('userInfo');
+      if(this.tokenExpirationTimer) {
+        clearTimeout(this.tokenExpirationTimer);
+      }
+      this.tokenExpirationTimer = null;
+    }
+
+    autoLogout(expirationDuration: number) {
+      console.log(expirationDuration)
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration)
     }
   }

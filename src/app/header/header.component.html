@@ -15,35 +15,35 @@
       <span *ngIf="!isAuthenticated">
         <button mat-raised-button (click)="open()">Zaloguj</button>
       </span>
-    <span *ngIf="this.authService.isLoggedIn |async" >
+    <!-- <span *ngIf="this.authService.isLoggedIn |async" >
       <button mat-raised-button (click)="onLogout()" >Wyloguj</button>
-    </span >
-    <span *ngIf="isAuthenticated">
-      <button mat-raised-button (click)="onLogout()" >Wylogowanie z dropdownu</button>
-    </span>
-    <mat-chip-list *ngIf="isAuthenticated">
-      <mat-chip>
-        <mat-chip-avatar>
-            <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
-        </mat-chip-avatar>
-        Dog one
-      </mat-chip>
-    </mat-chip-list>
-    </div>
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Dropdown button
-      </button>
+    </span > -->
+    <div class="dropdown" *ngIf="isAuthenticated">
+      <a id="dropdownMenuButton1" data-bs-toggle="dropdown">
+        <mat-chip-list aria-label="Dog selection">
+          <mat-chip color="primary">
+            <mat-chip-avatar>
+                <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
+            </mat-chip-avatar>
+            {{email}}
+          </mat-chip>
+        </mat-chip-list>
+      </a>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <li><a class="dropdown-item" href="#">Mój profil</a></li>
+        <li><a class="dropdown-item" href="#">Moje oferty</a></li>
+        <li><a class="dropdown-item" href="#">Zapisane oferty</a></li>
+        <li><a class="dropdown-item" (click)="onLogout()">Wyloguj</a></li>
       </ul>
+    </div>
     </div>
   </mat-toolbar>
 </p>
 </div>
 <div>
   <app-breadcrumbs></app-breadcrumbs>
+</div>
+<div *ngIf="loading" style="text-align: center;">
+  <app-loading-spinner></app-loading-spinner>
 </div>
 

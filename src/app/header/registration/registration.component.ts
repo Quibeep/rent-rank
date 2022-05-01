@@ -1,10 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { RegForm } from './form.model';
 import * as shajs from 'sha.js';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../authentication-service';
+import { take} from 'rxjs';
+import { Subscription } from 'rxjs';
+
 
 
 
@@ -13,11 +16,13 @@ import { AuthService } from '../authentication-service';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnDestroy {
   registrationForm: FormGroup = new FormGroup({});
   loading = false;
   error: string = null;
-  formState: boolean
+  formState: boolean;
+  regToken: string = null;
+  tokenSub: Subscription;
 
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute, private authService: AuthService ) {
@@ -28,12 +33,15 @@ export class RegistrationComponent implements OnInit {
       'userName': new FormControl(null,[Validators.required,]),
       'firstName': new FormControl(null,[Validators.required,]),
       'lastName': new FormControl(null,[Validators.required,]),
-      'email': new FormControl(null,[Validators.required,Validators.email]),
       'city': new FormControl(null,[Validators.required,]),
       'street': new FormControl(null,[Validators.required,]),
       'zipCode': new FormControl(null,[Validators.required,]),
     },
     );
+     this.tokenSub = this.authService.user.subscribe(user => {
+      this.regToken = user.token
+    })
+
     // this.registrationForm.valueChanges.subscribe(
     //   (value) => console.log(value)
     // )
@@ -46,32 +54,46 @@ export class RegistrationComponent implements OnInit {
   // passwordValid ():boolean | undefined {
   //   return this.registrationForm.get('passwordConfirm')?.valid;
   // }
+  ngOnDestroy(): void {
+    this.tokenSub.unsubscribe()
+  }
 
 
   registrationSubmit( userName:string, firstName: string, lastName: string, city: string, street: string, zipCode: string,) {
-    const fullForm : RegForm = {userName: userName ,firstName: firstName, lastName: lastName, city: city, street: street, zipCode: zipCode }
-    this.http.post('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration.json', fullForm).subscribe(responseData =>{
-      console.log(responseData);
-    });
+      const fullForm : RegForm = {userName: userName ,firstName: firstName, lastName: lastName, city: city, street: street, zipCode: zipCode }
+      this.http.post('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration.json', fullForm, {
+        params: new HttpParams().set('auth', this.regToken)
+      }).subscribe(responseData => {
+        console.log(responseData)
+      })
+
   }
+
+  // authRegistration() {
+  //   this.authService.user.pipe(
+  //     take(1),
+  //   )
+  // }
 
   formSubmit() {
     this.registrationSubmit;
 
   }
 
-  //nadal nie dziala
-  redirectAfterSec() {
-    setTimeout(this.redirectAfterSign.bind(this),3000);
-  }
 
   redirectAfterSign() {
     if (this.registrationForm.valid) {
-    this.router.navigate(['docs'], {relativeTo: this.route});
+    this.router.navigate(['']);
     }
   }
+  // , {relativeTo: this.route})
 
-
+  redirectAfterSec() {
+    if (this.registrationForm.valid) {
+      this.formState = true;
+      setTimeout(this.redirectAfterSign.bind(this),3000);
+    }
+  }
 
   hashPass(pass: string) {
    return shajs('sha256').update({pass}).digest('hex')

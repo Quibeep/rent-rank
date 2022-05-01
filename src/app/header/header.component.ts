@@ -13,6 +13,8 @@ import { PopupComponent } from './popup/popup.component';
 export class HeaderComponent implements OnInit, OnDestroy {
   private userSub: Subscription;
   isAuthenticated = false;
+  email: string;
+  loading: boolean = false;
 
   constructor(private modalService: NgbModal, public authService: AuthService) { }
 
@@ -27,17 +29,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
        console.log(!user)
      } else if (user) {
        this.isAuthenticated = true;
+       this.email = user.email;
        console.log(user)
      }
    });
   }
+
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
 
   onLogout() {
-    this.authService.switchloginState(false);
+    this.loading = true;
+    this.authService.logout()
+    this.loading = false;
   }
 
 }
