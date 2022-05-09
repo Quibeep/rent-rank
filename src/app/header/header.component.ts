@@ -3,6 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { AuthService } from './authentication-service';
 import { PopupComponent } from './popup/popup.component';
+import { HttpClient } from '@angular/common/http';
+import { RegForm } from './registration/form.model';
+
 
 
 @Component({
@@ -12,11 +15,13 @@ import { PopupComponent } from './popup/popup.component';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private userSub: Subscription;
+
   isAuthenticated = false;
   email: string;
   loading: boolean = false;
+  imgPath: string;
 
-  constructor(private modalService: NgbModal, public authService: AuthService) { }
+  constructor(private modalService: NgbModal, public authService: AuthService, private http:HttpClient) { }
 
   open() {
     const modalRef = this.modalService.open(PopupComponent, {centered:true});
@@ -28,11 +33,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
        this.isAuthenticated = false;
        console.log(!user)
      } else if (user) {
+      this.authService.info.subscribe(userData => {
+        this.imgPath = userData?.imagePath;
+        console.log('Imyczpaf', this.imgPath)
+       });
        this.isAuthenticated = true;
        this.email = user.email;
-       console.log(user)
+       console.log(user);
      }
    });
+
+
+
   }
 
 

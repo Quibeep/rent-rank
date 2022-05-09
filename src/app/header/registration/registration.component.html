@@ -2,7 +2,7 @@
   <div *ngIf="loading" style="text-align: center;">
     <app-loading-spinner></app-loading-spinner>
   </div>
-  <form [formGroup]="registrationForm" (ngSubmit)="registrationSubmit(userName.value, firstName.value, lastName.value, city.value, street.value, zipCode.value)"
+  <form [formGroup]="registrationForm" (ngSubmit)="registrationSubmit(userName.value, firstName.value, lastName.value, city.value, street.value, zipCode.value, userId)"
   *ngIf="!loading">
     <div class="row justify-content-center">
       <div class="col-6 text-center border border-1 rounded shadow">
@@ -81,7 +81,7 @@
         </div>
         <div class="row">
           <div class="d-grid gap-2">
-            <button class="btn mb-2" type="submit" (click)="redirectAfterSec()" [disabled]="!registrationForm.valid">Zaktualizuj dane</button>
+            <button class="btn mb-2" type="submit" (click)="redirectAfterSec()" [disabled]="!registrationForm.valid">Zakończ rejestracje</button>
             <div class="alert alert-success" role="alert" *ngIf="formState === true">
               <b>Rejestracja ukończona pomyślnie</b></div>
               <div class="alert alert-danger" role="alert" *ngIf="formState === false">

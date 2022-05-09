@@ -23,15 +23,16 @@
         <mat-chip-list aria-label="Dog selection">
           <mat-chip color="primary">
             <mat-chip-avatar>
-                <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
+                <!-- <img src="https://ae01.alicdn.com/kf/HTB18TJvazzuK1Rjy0Fpq6yEpFXal.jpg"/> -->
+                <img [src]="imgPath"/>
             </mat-chip-avatar>
             {{email}}
           </mat-chip>
         </mat-chip-list>
       </a>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">Mój profil</a></li>
-        <li><a class="dropdown-item" href="#">Moje oferty</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/my-profile']">Mój profil</a></li>
+        <li><a class="dropdown-item" href="#">Wystawione oferty</a></li>
         <li><a class="dropdown-item" href="#">Zapisane oferty</a></li>
         <li><a class="dropdown-item" (click)="onLogout()">Wyloguj</a></li>
       </ul>

@@ -5,7 +5,6 @@ import { RegForm } from './form.model';
 import * as shajs from 'sha.js';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../authentication-service';
-import { take} from 'rxjs';
 import { Subscription } from 'rxjs';
 
 
@@ -23,6 +22,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   formState: boolean;
   regToken: string = null;
   tokenSub: Subscription;
+  userId: string = null;
 
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute, private authService: AuthService ) {
@@ -39,8 +39,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     },
     );
      this.tokenSub = this.authService.user.subscribe(user => {
-      this.regToken = user.token
-    })
+      this.regToken = user?.token;
+      this.userId = user?.id;
+
+    });
+
+
 
     // this.registrationForm.valueChanges.subscribe(
     //   (value) => console.log(value)
@@ -55,17 +59,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   //   return this.registrationForm.get('passwordConfirm')?.valid;
   // }
   ngOnDestroy(): void {
-    this.tokenSub.unsubscribe()
+    this.tokenSub.unsubscribe();
   }
 
 
-  registrationSubmit( userName:string, firstName: string, lastName: string, city: string, street: string, zipCode: string,) {
-      const fullForm : RegForm = {userName: userName ,firstName: firstName, lastName: lastName, city: city, street: street, zipCode: zipCode }
-      this.http.post('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration.json', fullForm, {
+  registrationSubmit( userName:string, firstName: string, lastName: string, city: string, street: string, zipCode: string, userId:string, imagePath: string ) {
+      const fullForm : RegForm = {userName: userName ,firstName: firstName, lastName: lastName, city: city, street: street, zipCode: zipCode, id: userId, imagePath: imagePath }
+      this.http.put('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration/'+ userId +'.json', fullForm, {
         params: new HttpParams().set('auth', this.regToken)
       }).subscribe(responseData => {
-        console.log(responseData)
-      })
+        console.log(responseData);
+      });
 
   }
 
