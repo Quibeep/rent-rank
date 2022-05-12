@@ -1,7 +1,6 @@
-<div class="container biggerFont" style="margin-top: 100px">
-  <p>my-profile works!</p>
-  <div class="row border" >
-<div class="col-3 vl">
+<div class="container biggerFont border" style="margin-top: 100px">
+  <div class="row">
+<div class="col-3">
   <div class="list-group mt-2">
     <button type="button" class="list-group-item list-group-item-action" (click)="dataEnabled()" [ngClass]="{active: myData === true}">
      Moje dane
@@ -10,7 +9,7 @@
     <button type="button" class="list-group-item list-group-item-action" (click)="savedOffersEnabled()" [ngClass]="{active: savedOffers === true}">Zapisane oferty</button>
   </div>
 </div>
-<div class="col-9" *ngIf="editableMode === false">
+<div class="col-7 vl" *ngIf="editableMode === false">
   <div class="mb-3 mt-3">
     <label for="exampleFormControlInput1" class="form-label">Nazwa użytkownika: </label> <br>
     <a> {{userName}}</a>
@@ -37,14 +36,12 @@
   </div>
   <div>
     <button class="btn btn-outline-dark" (click)="updateData()" >Zaktualizuj dane </button>
-    <button class="btn btn-outline-dark" >Zapisz </button>
   </div>
 </div>
-  <div class="col-9" *ngIf="editableMode === true">
+  <div class="col-4 vl" *ngIf="editableMode === true">
     <form [formGroup]="updateForm" (ngSubmit)="updateFormSubmit(userName.value, firstName.value, lastName.value, city.value, street.value, zipCode.value, userId, imagePath.value)">
-      <div class="row">
-        <div class="col-6">
-          <h2>Aktualizacja danych profilowych</h2>
+
+        <div>
           <div class="form-group m-2">
             <label for="name">Nazwa użytkownika: </label>
             <input
@@ -120,20 +117,31 @@
               #imagePath
             />
             <span *ngIf="!updateForm.get('zipCodeUpdate').valid && updateForm.get('zipCodeUpdate').touched" style="color: red;">*Pole jest wymagane</span>
+            <div class="mt-2">
+              <button class="btn btn btn-outline-dark buttons mb-2"  type="submit">Aktualizuj</button>
+              <button class="btn btn btn-outline-dark mb-2"  (click)="refreshProfile()" type="submit">Anuluj</button>
+            </div>
           </div>
-          <div class="row">
-            <div class="d-grid gap-2">
-              <button class="btn mb-2 btn btn-outline-dark"  type="submit">Aktualizuj</button>
               <!-- <div class="alert alert-success" role="alert" *ngIf="formState === true">
                 <b>Rejestracja ukończona pomyślnie</b></div>
                 <div class="alert alert-danger" role="alert" *ngIf="formState === false">
                   <b>{{error}}</b>
                 </div> -->
-            </div>
-          </div>
         </div>
-      </div>
     </form>
+  </div>
+  <div class="col" *ngIf="editableMode === true">
+    <h2>Podgląd avatara</h2>
+    <mat-chip-list aria-label="Dog selection">
+      <mat-chip color="primary">
+        <mat-chip-avatar>
+          <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+            <img [src]="imageURL">
+          </div>
+        </mat-chip-avatar>
+        {{email}}
+      </mat-chip>
+    </mat-chip-list>
   </div>
 </div>
 </div>

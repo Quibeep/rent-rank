@@ -8,3 +8,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .dropdown-menu{
   transform: translate(4px,32px) !important;
 }
+
+.btn-outline-dark:hover {
+  color: #fff;
+  background-color:  #673ab7 !important;
+  border-color:  #673ab7 !important;
+}
