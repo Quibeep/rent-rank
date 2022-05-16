@@ -1,11 +1,13 @@
-<div class="container biggerFont border" style="margin-top: 100px">
+<router-outlet></router-outlet>
+<div class="container biggerFont border" style="margin-top: 100px" *ngIf="router.url == '/my-profile'">
   <div class="row">
 <div class="col-3">
   <div class="list-group mt-2">
     <button type="button" class="list-group-item list-group-item-action" (click)="dataEnabled()" [ngClass]="{active: myData === true}">
      Moje dane
     </button>
-    <button type="button" class="list-group-item list-group-item-action" (click)="offersEnabled()" [ngClass]="{active: myOffers === true}">Wystawione oferty</button>
+    <button type="button" class="list-group-item list-group-item-action" (click)="offersEnabled()" [ngClass]="{active: createOffers === true}" [routerLink]="['/my-profile','offer-creation']">Stwórz ofertę</button>
+    <button type="button" class="list-group-item list-group-item-action" (click)="placedOffersEnabled()" [ngClass]="{active: myOffers === true}">Wystawione oferty</button>
     <button type="button" class="list-group-item list-group-item-action" (click)="savedOffersEnabled()" [ngClass]="{active: savedOffers === true}">Zapisane oferty</button>
   </div>
 </div>

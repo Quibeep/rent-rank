@@ -28,6 +28,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AdvertsComponent } from './adverts/adverts.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { OfferCreationComponent } from './offer-creation/offer-creation.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -50,6 +52,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     LoadingSpinnerComponent,
     MyProfileComponent,
     AdvertsComponent,
+    OfferCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     MatChipsModule,
     MatSelectModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [
     NgbActiveModal,
