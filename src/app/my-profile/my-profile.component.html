@@ -1,0 +1,140 @@
+<div class="container biggerFont" style="margin-top: 100px">
+  <p>my-profile works!</p>
+  <div class="row border" >
+<div class="col-3 vl">
+  <div class="list-group mt-2">
+    <button type="button" class="list-group-item list-group-item-action" (click)="dataEnabled()" [ngClass]="{active: myData === true}">
+     Moje dane
+    </button>
+    <button type="button" class="list-group-item list-group-item-action" (click)="offersEnabled()" [ngClass]="{active: myOffers === true}">Wystawione oferty</button>
+    <button type="button" class="list-group-item list-group-item-action" (click)="savedOffersEnabled()" [ngClass]="{active: savedOffers === true}">Zapisane oferty</button>
+  </div>
+</div>
+<div class="col-9" *ngIf="editableMode === false">
+  <div class="mb-3 mt-3">
+    <label for="exampleFormControlInput1" class="form-label">Nazwa użytkownika: </label> <br>
+    <a> {{userName}}</a>
+  </div>
+  <div class="mb-3 mt-3">
+    <label for="exampleFormControlInput1" class="form-label">Imię: </label> <br>
+    <a> {{firstName}}</a>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Nazwisko:</label> <br>
+    <a> {{lastName}} </a>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Miasto:</label> <br>
+    <a> {{city}}</a>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Ulica:</label> <br>
+    <a> {{street}}</a>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Kod pocztowy:</label> <br>
+    <a> {{zipCode}}</a>
+  </div>
+  <div>
+    <button class="btn btn-outline-dark" (click)="updateData()" >Zaktualizuj dane </button>
+    <button class="btn btn-outline-dark" >Zapisz </button>
+  </div>
+</div>
+  <div class="col-9" *ngIf="editableMode === true">
+    <form [formGroup]="updateForm" (ngSubmit)="updateFormSubmit(userName.value, firstName.value, lastName.value, city.value, street.value, zipCode.value, userId, imagePath.value)">
+      <div class="row">
+        <div class="col-6">
+          <h2>Aktualizacja danych profilowych</h2>
+          <div class="form-group m-2">
+            <label for="name">Nazwa użytkownika: </label>
+            <input
+              id="userName"
+              type="text"
+              class="form-control"
+              formControlName="userUpdateName"
+              #userName
+            />
+            <span *ngIf="!updateForm.get('userUpdateName').valid && updateForm.get('userUpdateName').touched" style="color: red;">*Pole jest wymagane</span>
+          </div>
+          <div class="form-group m-2">
+            <label for="name">Imię: </label>
+            <input
+              id="firstName"
+              type="text"
+              class="form-control"
+              formControlName="firstUpdateName"
+              #firstName
+            />
+            <span *ngIf="!updateForm.get('firstUpdateName').valid && updateForm.get('firstUpdateName').touched" style="color: red;">*Pole jest wymagane</span>
+          </div>
+          <div class="form-group m-2">
+            <label for="name">Nazwisko: </label>
+            <input
+              id="lastName"
+              type="text"
+              class="form-control"
+              formControlName="lastUpdateName"
+              #lastName
+            />
+            <span *ngIf="!updateForm.get('lastUpdateName').valid && updateForm.get('lastUpdateName').touched" style="color: red;">*Pole jest wymagane</span>
+          </div>
+          <div class="form-group m-2">
+            <label for="name">Miasto: </label>
+            <input
+              id="city"
+              type="text"
+              class="form-control"
+              formControlName="cityUpdate"
+              #city
+            />
+            <span *ngIf="!updateForm.get('cityUpdate').valid && updateForm.get('cityUpdate').touched" style="color: red;">*Pole jest wymagane</span>
+          </div>
+          <div class="form-group m-2">
+            <label for="name">Ulica: </label>
+            <input
+              id="street"
+              type="text"
+              class="form-control"
+              formControlName="streetUpdate"
+              #street
+            />
+            <span *ngIf="!updateForm.get('streetUpdate').valid && updateForm.get('streetUpdate').touched" style="color: red;">*Pole jest wymagane</span>
+          </div>
+          <div class="form-group m-2">
+            <label for="name">Kod pocztowy: </label>
+            <input
+              zipValid
+              id="zipCode"
+              type="text"
+              class="form-control"
+              formControlName="zipCodeUpdate"
+              maxlength="6"
+              #zipCode
+            />
+            <label for="name">Ścieżka URL dla zdjęcia profilowego: </label>
+            <input
+              id="imagePath"
+              type="text"
+              class="form-control"
+              formControlName="imagePath"
+              #imagePath
+            />
+            <span *ngIf="!updateForm.get('zipCodeUpdate').valid && updateForm.get('zipCodeUpdate').touched" style="color: red;">*Pole jest wymagane</span>
+          </div>
+          <div class="row">
+            <div class="d-grid gap-2">
+              <button class="btn mb-2 btn btn-outline-dark"  type="submit">Aktualizuj</button>
+              <!-- <div class="alert alert-success" role="alert" *ngIf="formState === true">
+                <b>Rejestracja ukończona pomyślnie</b></div>
+                <div class="alert alert-danger" role="alert" *ngIf="formState === false">
+                  <b>{{error}}</b>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+

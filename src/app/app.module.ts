@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/loading-spinner.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSelectModule} from '@angular/material/select';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 
 
@@ -41,7 +42,8 @@ import {MatSelectModule} from '@angular/material/select';
     RegistrationComponent,
     PageNotFoundComponent,
     zipDirective,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,

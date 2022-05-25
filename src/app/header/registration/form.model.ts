@@ -5,4 +5,6 @@ export interface RegForm {
   city: string,
   street: string,
   zipCode: string,
+  id: string,
+  imagePath?: string,
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../authentication-service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class PopupComponent implements OnInit{
   formState: boolean
   lockLogin = false;
 
-  constructor(public activeModal: NgbActiveModal, private authService: AuthService, private router: Router) {
+  constructor(public activeModal: NgbActiveModal, private authService: AuthService, private router: Router, private http: HttpClient) {
 
   }
 
@@ -36,6 +37,8 @@ export class PopupComponent implements OnInit{
     this.loginForm.get('loginData.userPassword')?.valueChanges.subscribe(()=>{
       this.loginForm.get('loginData.passwordConfirm')?.updateValueAndValidity();
     });
+
+
   }
 
   onSubmit() {
@@ -52,6 +55,7 @@ export class PopupComponent implements OnInit{
       this.loading = false;
       this.loggedIn = true;
       this.checkStatus();
+      this.checkForm();
       console.log(resData);
     }, errorMessage => {
       this.error = errorMessage;
@@ -60,6 +64,7 @@ export class PopupComponent implements OnInit{
       this.formState =false;
     }
     );
+
 }
 
 onRegister() {
@@ -72,7 +77,7 @@ onRegister() {
     this.loggedIn = true;
     this.formState =true;
     this.checkStatus();
-    this.router.navigate(['registration'])
+    this.checkForm();
 
     console.log(resData);
   }, errorMessage => {
@@ -82,6 +87,25 @@ onRegister() {
     this.formState =false;
   }
   );
+
+}
+
+// '+this.authService.user.value.id +'
+
+checkForm() {
+  this.http.get('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration/'+this.authService.user.value.id +'.json')
+    .subscribe(responseLoad => {
+      if (responseLoad === null) {
+
+        this.router.navigate(['registration'])
+      }
+      else {
+        this.router.navigate([''])
+      }
+    console.log(responseLoad);
+  })
+
+
 }
 
 passValid(): ValidatorFn {
