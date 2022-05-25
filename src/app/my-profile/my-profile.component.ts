@@ -5,6 +5,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import { Subscription } from 'rxjs';
 import { RegForm } from '../header/registration/form.model';
 import { UserInfo } from '../header/user-info.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -17,9 +19,11 @@ import { UserInfo } from '../header/user-info.model';
 export class MyProfileComponent implements OnInit, OnDestroy {
   updateForm: FormGroup = new FormGroup({});
   myData: boolean = true;
+  createOffers: boolean = false;
   myOffers: boolean = false;
   savedOffers: boolean = false;
   editableMode:boolean = false;
+
 
   regToken: string = null;
   tokenSub: Subscription;
@@ -35,9 +39,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   imageURL:any;
   email: string;
+  route: ActivatedRoute;
 
-  constructor(private http: HttpClient, private authService: AuthService, private fb: FormBuilder) {
+  router: Router;
 
+  constructor(private http: HttpClient, private authService: AuthService, private fb: FormBuilder, private _router: Router, private activatedRoute: ActivatedRoute) {
+    this.router = _router
    }
 
   ngOnInit(): void {
@@ -76,22 +83,35 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   dataEnabled() {
-    this.myData = !this.myData;
+    this.myData = true;
     this.myOffers = false;
     this.savedOffers = false;
+    this.createOffers = false;
     this.checkForm();
-
-
   }
+
   offersEnabled() {
+    this.myData = false;
+    this.myOffers = false;
+    this.savedOffers = false;
+    this.createOffers = true;
+    // this.router.navigate(['my-profile/offer-creation']);
+    this.dataEnabled()
+  }
+
+  placedOffersEnabled() {
     this.myData = false;
     this.myOffers = true;
     this.savedOffers = false;
+    this.createOffers = false;
+
   }
   savedOffersEnabled() {
     this.myData = false;
     this.myOffers = false;
     this.savedOffers = true;
+    this.createOffers = false;
+
   }
 
   updateData() {
@@ -170,6 +190,5 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
 // }
   ngOnDestroy(): void {
-
   }
 }

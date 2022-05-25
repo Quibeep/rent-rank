@@ -9,6 +9,7 @@ import { RegistrationComponent } from './header/registration/registration.compon
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AdvertsComponent } from './adverts/adverts.component';
+import { OfferCreationComponent } from './offer-creation/offer-creation.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent},
   { path: 'login', component: PopupComponent},
   { path: 'registration', component: RegistrationComponent},
-  { path: 'my-profile', component: MyProfileComponent},
+  { path: 'my-profile', component: MyProfileComponent,  children: [
+    { path: 'offer-creation', component: OfferCreationComponent},]},
   { path: 'not-found', component: PageNotFoundComponent},
   { path: 'adverts', component: AdvertsComponent},
   { path: '**', redirectTo: '/not-found'},
