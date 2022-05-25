@@ -64,7 +64,7 @@ export class PopupComponent implements OnInit{
 
 onRegister() {
   const emailVal = this.loginForm.get('loginData.userEmail').value;
-  const passwordVal = this.loginForm.get('loginData.Password').value;
+  const passwordVal = this.loginForm.get('loginData.userPassword').value;
   this.loading = true;
   this.authService.switchloginState(true);
   this.authService.signup(emailVal, passwordVal).subscribe(resData => {

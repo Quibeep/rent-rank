@@ -23,6 +23,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { zipDirective } from './header/registration/zipcode-dir';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/loading-spinner.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 @NgModule({
@@ -49,7 +52,9 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner.component';
     MatButtonModule,
     NgbModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatChipsModule,
+    MatSelectModule
   ],
   providers: [
     NgbActiveModal,

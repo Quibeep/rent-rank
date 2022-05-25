@@ -1,9 +1,6 @@
 <div>
 <p>
   <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
     <a [routerLink]="['/']">
     <span style="color: white;"> RentRank</span>
     </a>
@@ -15,13 +12,33 @@
       <mat-icon>share</mat-icon>
     </button>
     <div class="menu nav">
-      <!-- przycisk powinien sie zmieniac w zaleznosci od tego czy uzytkownik jest zalogowany - poprawic binding -->
-      <span *ngIf="!(this.authService.isLoggedIn |async)">
+      <span *ngIf="!isAuthenticated">
         <button mat-raised-button (click)="open()">Zaloguj</button>
       </span>
     <span *ngIf="this.authService.isLoggedIn |async" >
       <button mat-raised-button (click)="onLogout()" >Wyloguj</button>
+    </span >
+    <span *ngIf="isAuthenticated">
+      <button mat-raised-button (click)="onLogout()" >Wylogowanie z dropdownu</button>
     </span>
+    <mat-chip-list *ngIf="isAuthenticated">
+      <mat-chip>
+        <mat-chip-avatar>
+            <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
+        </mat-chip-avatar>
+        Dog one
+      </mat-chip>
+    </mat-chip-list>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Dropdown button
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
     </div>
   </mat-toolbar>
 </p>
