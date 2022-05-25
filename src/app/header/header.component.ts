@@ -31,7 +31,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
    this.userSub = this.authService.user.subscribe(user =>{
      if (!user) {
        this.isAuthenticated = false;
-       console.log(!user)
      } else if (user) {
       this.authService.info.subscribe(userData => {
         this.imgPath = userData?.imagePath;
@@ -39,7 +38,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
        });
        this.isAuthenticated = true;
        this.email = user.email;
-       console.log(user);
      }
    });
 

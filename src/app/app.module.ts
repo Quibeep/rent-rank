@@ -26,6 +26,11 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSelectModule} from '@angular/material/select';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { AdvertsComponent } from './adverts/adverts.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
+
 
 
 
@@ -43,7 +48,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     PageNotFoundComponent,
     zipDirective,
     LoadingSpinnerComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    AdvertsComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatChipsModule,
-    MatSelectModule
+    MatSelectModule,
+    FontAwesomeModule
   ],
   providers: [
     NgbActiveModal,

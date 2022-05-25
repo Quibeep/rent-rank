@@ -33,6 +33,9 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   userName: string;
   imageSrc: string;
 
+  imageURL:any;
+  email: string;
+
   constructor(private http: HttpClient, private authService: AuthService, private fb: FormBuilder) {
 
    }
@@ -55,6 +58,20 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     });
 
+    this.authService.user.subscribe(user =>{
+      if (!user) {
+
+      } else if (user) {
+
+        this.email = user.email;
+      }
+    });
+
+    this.updateForm.get("imagePath").valueChanges.subscribe(x => {
+      console.log('image changed')
+      console.log(x)
+      this.imageURL = x;
+   })
 
   }
 
@@ -63,6 +80,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     this.myOffers = false;
     this.savedOffers = false;
     this.checkForm();
+
 
   }
   offersEnabled() {
@@ -137,6 +155,20 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     });
 
 }
+
+// showPreview(event) {
+//   const file = (event.target as HTMLInputElement);
+//   this.updateForm.patchValue({
+//     'imagePath': file
+//   });
+//   this.updateForm.get('imagePath').updateValueAndValidity()
+//   // File Preview
+//   const reader = new FileReader();
+//   reader.onload = () => {
+//     this.imageURL = reader.result as string;
+//   }
+
+// }
   ngOnDestroy(): void {
 
   }

@@ -1,8 +1,25 @@
 
 .vl {
-  border-right: 4px solid rgba(137, 43, 226, 0.836);
+  border-left: 4px solid #673ab7;
   height: 500px;
 }
 .biggerFont {
   font-size: medium;
+}
+.buttons {
+margin-right: 10px;
+}
+img {
+  max-width: 120%;
+  max-height: 120%;
+}
+
+input {
+  resize: horizontal;
+  width: 270px;
+}
+
+
+input:focus {
+  min-width: 200px;
 }
