@@ -13,3 +13,7 @@
   background-color:#673ab7;
   color: white;
 }
+
+input.ng-invalid.ng-touched {
+  border: 3px solid rgb(247, 8, 48);
+}

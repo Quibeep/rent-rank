@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +11,11 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./popup.component.scss']
 })
 export class PopupComponent implements OnInit{
-loginForm: FormGroup = new FormGroup ({});
+  @Output() switchLog = new EventEmitter<boolean>();
+
+  isLoggedIn = true;
+
+  loginForm: FormGroup = new FormGroup ({});
 
   constructor(public activeModal: NgbActiveModal) {
 
@@ -25,5 +30,12 @@ loginForm: FormGroup = new FormGroup ({});
 
   onSubmit() {
     console.log(this.loginForm);
+    this.loginForm.reset()
+  }
+
+  //funkcja powinna emitowac propetke, ktora moze byc zebrana przez inny komponent i wyswietlac zaloguj/wyloguj w zaleznosci od wartosci booleanowej
+  onLog() {
+    this.isLoggedIn = !this.isLoggedIn
+    this.switchLog.emit(this.isLoggedIn)
   }
 }

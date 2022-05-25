@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { RegForm } from './form.model';
-
-
+import * as shajs from 'sha.js';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -13,11 +13,10 @@ import { RegForm } from './form.model';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-
   registrationForm: FormGroup = new FormGroup({});
 
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private route: ActivatedRoute ) {
   }
 
   ngOnInit(): void {
@@ -47,11 +46,33 @@ export class RegistrationComponent implements OnInit {
 
 
   registrationSubmit(  firstName: string, lastName: string, email: string, password: string, passwordConfirm: string, city: string, street: string, zipCode: string,) {
-    const fullForm : RegForm = {firstName: firstName, lastName: lastName, email: email, password: password, passwordConfirm: passwordConfirm, city: city, street: street, zipCode: zipCode }
-    this.http.put('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration.json', fullForm).subscribe(responseData =>{
+    const fullForm : RegForm = {firstName: firstName, lastName: lastName, email: email, password: this.hashPass(password), passwordConfirm: this.hashPass(passwordConfirm), city: city, street: street, zipCode: zipCode }
+    this.http.post('https://rent-rank-default-rtdb.europe-west1.firebasedatabase.app/registration.json', fullForm).subscribe(responseData =>{
       console.log(responseData);
     });
+    if (this.registrationForm.valid) {
+      console.log("Form Submitted!");
+      this.registrationForm.reset();
+      // setTimeout(this.redirectAfterSign,1000)
+    }
     console.log(this.registrationForm);
+  }
+
+  //nadal nie dziala
+  redirectAfterSec() {
+    setTimeout(this.redirectAfterSign.bind(this),3000);
+  }
+
+  redirectAfterSign() {
+    if (this.registrationForm.valid) {
+    this.router.navigate(['docs'], {relativeTo: this.route});
+    }
+  }
+
+
+
+  hashPass(pass: string) {
+   return shajs('sha256').update({pass}).digest('hex')
   }
 
   // onRegistrationSubmit(formData: {firstName: string; lastName: string}) {
@@ -62,8 +83,8 @@ export class RegistrationComponent implements OnInit {
 
   onlyChar(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
-      console.log(control.value);
-      console.log(this.registrationForm.get('password')?.value);
+      // console.log(control.value);
+      // console.log(this.registrationForm.get('password')?.value);
       if (control.value !== this.registrationForm.get('password')?.value) {
         return {passwordError: true};
       }

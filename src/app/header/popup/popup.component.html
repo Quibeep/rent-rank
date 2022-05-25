@@ -28,12 +28,14 @@
           class="form-control"
           id="inputPassword"
           formControlName="userPassword"
+          minlength="6"
         />
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-outline-dark">Zaloguj</button>
+    <!-- podczas klikniecia onLog() powinien byc emitowany event, ktory zostanie zebrany przez drugi komponent -->
+    <button type="submit" class="btn btn-outline-dark" (click)="onLog(); activeModal.close() "  [disabled]="!loginForm.valid">Zaloguj</button>
     <button
       type="button"
       class="btn btn-outline-dark"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PopupComponent } from './popup/popup.component';
 
@@ -10,6 +10,8 @@ import { PopupComponent } from './popup/popup.component';
 })
 export class HeaderComponent implements OnInit {
 
+  isLoggedin: boolean;
+
   constructor(private modalService: NgbModal) { }
 
   open() {
@@ -20,4 +22,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //proba zmiany propetki
+  getLoginInfo(logInfo: boolean) {
+    logInfo = this.isLoggedin
+  }
 }

@@ -13,6 +13,7 @@
             formControlName="firstName"
             #firstName
           />
+          <span *ngIf="!registrationForm.get('firstName').valid && registrationForm.get('firstName').touched" style="color: red;">*Pole jest wymagane</span>
         </div>
         <div class="form-group m-2">
           <input
@@ -23,6 +24,7 @@
             formControlName="lastName"
             #lastName
           />
+          <span *ngIf="!registrationForm.get('lastName').valid && registrationForm.get('lastName').touched" style="color: red;">*Pole jest wymagane</span>
         </div>
         <div class="form-group m-2">
           <input
@@ -33,6 +35,7 @@
             formControlName="email"
             #email
           />
+          <span *ngIf="!registrationForm.get('email').valid && registrationForm.get('email').touched" style="color: red;">*Pole jest wymagane</span>
         </div>
         <div class="form-group m-2">
           <input
@@ -43,6 +46,7 @@
             formControlName="password"
             #password
           />
+          <span *ngIf="!registrationForm.get('password').valid && registrationForm.get('password').touched" style="color: red;">*Pole jest wymagane</span>
           <div></div>
         </div>
         <div class="form-group m-2">
@@ -54,7 +58,7 @@
             formControlName="passwordConfirm"
             #passwordConfirm
           />
-          <div *ngIf="!passwordValid() && registrationForm.get('passwordConfirm')?.touched" style="color: red;">*Hasła muszą sie zgadzać</div>
+          <div *ngIf="!passwordValid() && registrationForm.get('passwordConfirm')?.touched && !registrationForm.get('passwordConfirm').valid" style="color: red;">*Hasła muszą sie zgadzać</div>
         </div>
         <div class="form-group m-2">
           <input
@@ -65,6 +69,7 @@
             formControlName="city"
             #city
           />
+          <span *ngIf="!registrationForm.get('city').valid && registrationForm.get('city').touched" style="color: red;">*Pole jest wymagane</span>
         </div>
         <div class="form-group m-2">
           <input
@@ -75,6 +80,7 @@
             formControlName="street"
             #street
           />
+          <span *ngIf="!registrationForm.get('street').valid && registrationForm.get('street').touched" style="color: red;">*Pole jest wymagane</span>
         </div>
         <div class="form-group m-2">
           <input
@@ -87,11 +93,12 @@
             maxlength="6"
             #zipCode
           />
+          <span *ngIf="!registrationForm.get('zipCode').valid && registrationForm.get('zipCode').touched" style="color: red;">*Pole jest wymagane</span>
           <hr />
         </div>
         <div class="row">
           <div class="d-grid gap-2">
-            <button class="btn mb-2" type="submit" [disabled]="!registrationForm.valid">Rejestracja</button>
+            <button class="btn mb-2" type="submit" (click)="redirectAfterSec()" [disabled]="!registrationForm.valid">Rejestracja</button>
           </div>
         </div>
       </div>
