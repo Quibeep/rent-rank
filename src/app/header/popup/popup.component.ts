@@ -1,8 +1,8 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { Component, OnInit,} from '@angular/core';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../authentication-service';
 
 
 @Component({
@@ -11,13 +11,13 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./popup.component.scss']
 })
 export class PopupComponent implements OnInit{
-  @Output() switchLog = new EventEmitter<boolean>();
-
-  isLoggedIn = true;
 
   loginForm: FormGroup = new FormGroup ({});
+  loggedIn = false;
+  error: string = null;
+  loading = false;
 
-  constructor(public activeModal: NgbActiveModal) {
+  constructor(public activeModal: NgbActiveModal, private authService: AuthService) {
 
   }
 
@@ -30,12 +30,33 @@ export class PopupComponent implements OnInit{
 
   onSubmit() {
     console.log(this.loginForm);
-    this.loginForm.reset()
+    this.loginForm.reset();
   }
 
-  //funkcja powinna emitowac propetke, ktora moze byc zebrana przez inny komponent i wyswietlac zaloguj/wyloguj w zaleznosci od wartosci booleanowej
-  onLog() {
-    this.isLoggedIn = !this.isLoggedIn
-    this.switchLog.emit(this.isLoggedIn)
+  onLogin() {
+    const emailVal = this.loginForm.get('userEmail').value;
+    const passwordVal = this.loginForm.get('userPassword').value;
+    this.loading = true;
+    this.authService.switchloginState(true);
+    this.authService.login(emailVal, passwordVal).subscribe(resData => {
+      this.loading = false;
+      this.loggedIn = true;
+      this.checkStatus();
+      console.log(resData);
+    }, errorMessage => {
+      this.error = errorMessage;
+      console.log(errorMessage);
+      this.loading = false;
+    }
+    );
+}
+
+  checkStatus() {
+    if (this.loggedIn === true) {
+      console.log(this.loggedIn);
+     this.activeModal.close();
+    }
+    return
   }
+
 }
