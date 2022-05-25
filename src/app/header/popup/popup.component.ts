@@ -1,5 +1,5 @@
 import { Component, OnInit,} from '@angular/core';
-
+import { Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../authentication-service';
@@ -20,7 +20,7 @@ export class PopupComponent implements OnInit{
   formState: boolean
   lockLogin = false;
 
-  constructor(public activeModal: NgbActiveModal, private authService: AuthService) {
+  constructor(public activeModal: NgbActiveModal, private authService: AuthService, private router: Router) {
 
   }
 
@@ -72,6 +72,8 @@ onRegister() {
     this.loggedIn = true;
     this.formState =true;
     this.checkStatus();
+    this.router.navigate(['registration'])
+
     console.log(resData);
   }, errorMessage => {
     this.error = errorMessage;

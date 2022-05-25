@@ -2,7 +2,7 @@
   <div *ngIf="loading" style="text-align: center;">
     <app-loading-spinner></app-loading-spinner>
   </div>
-  <form [formGroup]="registrationForm" (ngSubmit)="registrationSubmit(firstName.value, lastName.value, email.value, password.value, passwordConfirm.value, city.value, street.value, zipCode.value)"
+  <form [formGroup]="registrationForm" (ngSubmit)="registrationSubmit(userName.value, firstName.value, lastName.value, city.value, street.value, zipCode.value)"
   *ngIf="!loading">
     <div class="row justify-content-center">
       <div class="col-6 text-center border border-1 rounded shadow">
@@ -15,7 +15,7 @@
             class="form-control text-center"
             placeholder="Nazwa użytkownika"
             formControlName="userName"
-            #firstName
+            #userName
             ngbPopover="Ta nazwa bedzię wyświetlana innym użytkownikom" triggers="mouseenter:mouseleave"
           />
           <span *ngIf="!registrationForm.get('userName').valid && registrationForm.get('userName').touched" style="color: red;">*Pole jest wymagane</span>
