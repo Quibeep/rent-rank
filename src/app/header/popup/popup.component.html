@@ -1,5 +1,10 @@
 <div class="modal-header header-s">
-  <div class="modal-title mt-3 header-title">Logowanie</div>
+  <div class="modal-title mt-3 header-title">
+    <h1>
+      <span><a class="span-special" (click)="switchToLogin()">Logowanie</a>/</span>
+      <span><a class="span-special" (click)="switchToRegister()">Rejestracja</a></span>
+    </h1>
+  </div>
   <div *ngIf="loading" style="text-align: center;">
     <app-loading-spinner></app-loading-spinner>
   </div>
@@ -12,43 +17,77 @@
 </div>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="modal-body">
-    <div class="mb-3 row">
-      <label for="email" class="col-sm-2 col-form-label">Email</label>
-      <div class="col-sm-10">
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          formControlName="userEmail"
-        />
+    <div formGroupName="loginData">
+      <div class="mb-3 row in-line">
+        <div class="col-4">
+          <label for="email" class="in-line">Email</label>
+        </div>
+        <div class="col-6">
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="userEmail"
+          />
+          <span *ngIf="!loginForm.get('loginData.userEmail').valid && loginForm.get('loginData.userEmail').touched" style="color: red;">*Pole jest wymagane</span>
+        </div>
+        <div class="col-2"></div>
+      </div>
+      <div class="mb-3 row in-line">
+        <div class="col-4">
+          <label for="inputPassword" class="in-line">Hasło</label>
+        </div>
+        <div class="col-6">
+          <input
+            type="password"
+            class="form-control"
+            id="inputPassword"
+            formControlName="userPassword"
+            minlength="6"
+          />
+          <span *ngIf="!loginForm.get('loginData.userPassword').valid && loginForm.get('loginData.userPassword').touched" style="color: red;">*Pole jest wymagane</span>
+        </div>
+        <div class="col-2"></div>
       </div>
     </div>
-    <div class="mb-3 row">
-      <label for="inputPassword" class="col-sm-2 col-form-label">Hasło</label>
-      <div class="col-sm-10">
+    <div class="mb-3 row in-line" *ngIf="registerMode === true">
+      <div class="col-4">
+        <label for="confirmPassword" class="in-line">Potwierdź hasło</label>
+      </div>
+      <div class="col-6 input-line" >
         <input
           type="password"
           class="form-control"
-          id="inputPassword"
-          formControlName="userPassword"
+          id="confirmPassword"
+          formControlName="passwordConfirm"
           minlength="6"
         />
+      </div>
+      <div class="col-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-8">
+        <span *ngIf="!passwordValid() && loginForm.get('passwordConfirm')?.touched && !loginForm.get('passwordConfirm').valid" style="color: red;">*Hasła muszą sie zgadzać</span>
+        <br>
+        <span *ngIf="loginForm.get('passwordConfirm')?.touched && !loginForm.get('passwordConfirm').errors.required" style="color: red;">*Pole jest wymagane</span>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <!-- podczas klikniecia onLog() powinien byc emitowany event, ktory zostanie zebrany przez drugi komponent -->
-    <button type="submit" class="btn btn-outline-dark" (click)=" onLogin()"  [disabled]="!loginForm.valid">Zaloguj</button>
+    <button *ngIf="lockLogin === false" type="submit" class="btn btn-outline-dark" (click)=" onLogin()"  [disabled]=" !loginForm.get('loginData').valid">Zaloguj</button>
     <button
       type="button"
       class="btn btn-outline-dark"
-      [routerLink]="['/registration']"
-      (click)="activeModal.close()"
+      (click)="onRegister()"
+      [disabled]="!loginForm.valid"
     >
-      Rejestracja
+      Zarejestruj
     </button>
   </div>
-  <div class="alert alert-danger" role="alert" *ngIf="error" style="text-align: center;" >
-    <b>{{error}}</b>
+  <div class="alert alert-success" role="alert" *ngIf="formState === true">
+    <b>Rejestracja ukończona pomyślnie</b></div>
+    <div class="alert alert-danger" role="alert" *ngIf="formState === false">
+      <b>{{error}}</b>
     </div>
 </form>

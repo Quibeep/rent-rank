@@ -1,6 +1,6 @@
 import { Component, OnInit,} from '@angular/core';
 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../authentication-service';
 
@@ -12,10 +12,13 @@ import { AuthService } from '../authentication-service';
 })
 export class PopupComponent implements OnInit{
 
+  registerMode: boolean = false;
   loginForm: FormGroup = new FormGroup ({});
   loggedIn = false;
   error: string = null;
   loading = false;
+  formState: boolean
+  lockLogin = false;
 
   constructor(public activeModal: NgbActiveModal, private authService: AuthService) {
 
@@ -23,8 +26,15 @@ export class PopupComponent implements OnInit{
 
   ngOnInit(): void {
     this.loginForm = new FormGroup ({
-      'userEmail': new FormControl(null,[Validators.required, Validators.email]),
-      'userPassword': new FormControl(null, [Validators.required])
+      'loginData': new FormGroup({
+        'userEmail': new FormControl(null,[Validators.required, Validators.email]),
+        'userPassword': new FormControl(null, [Validators.required]),
+      }),
+      'passwordConfirm': new FormControl(null, [Validators.required, this.passValid().bind(this)])
+    });
+
+    this.loginForm.get('loginData.userPassword')?.valueChanges.subscribe(()=>{
+      this.loginForm.get('loginData.passwordConfirm')?.updateValueAndValidity();
     });
   }
 
@@ -34,8 +44,8 @@ export class PopupComponent implements OnInit{
   }
 
   onLogin() {
-    const emailVal = this.loginForm.get('userEmail').value;
-    const passwordVal = this.loginForm.get('userPassword').value;
+    const emailVal = this.loginForm.get('loginData.userEmail').value;
+    const passwordVal = this.loginForm.get('loginData.userPassword').value;
     this.loading = true;
     this.authService.switchloginState(true);
     this.authService.login(emailVal, passwordVal).subscribe(resData => {
@@ -47,8 +57,43 @@ export class PopupComponent implements OnInit{
       this.error = errorMessage;
       console.log(errorMessage);
       this.loading = false;
+      this.formState =false;
     }
     );
+}
+
+onRegister() {
+  const emailVal = this.loginForm.get('loginData.userEmail').value;
+  const passwordVal = this.loginForm.get('loginData.Password').value;
+  this.loading = true;
+  this.authService.switchloginState(true);
+  this.authService.signup(emailVal, passwordVal).subscribe(resData => {
+    this.loading = false;
+    this.loggedIn = true;
+    this.formState =true;
+    this.checkStatus();
+    console.log(resData);
+  }, errorMessage => {
+    this.error = errorMessage;
+    console.log(errorMessage);
+    this.loading = false;
+    this.formState =false;
+  }
+  );
+}
+
+passValid(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: boolean } | null => {
+    // console.log(control.value);
+    // console.log(this.registrationForm.get('userPassword')?.value);
+    if (control.value !== this.loginForm.get('loginData.userPassword')?.value) {
+      return {passwordError: true};
+    }
+    return null;
+  };
+}
+passwordValid ():boolean | undefined {
+  return this.loginForm.get('passwordConfirm')?.valid;
 }
 
   checkStatus() {
@@ -58,5 +103,14 @@ export class PopupComponent implements OnInit{
     }
     return
   }
-
+  switchToRegister() {
+    this.registerMode = true;
+    this.loginForm.reset();
+    this.lockLogin = true;
+  }
+  switchToLogin() {
+    this.registerMode = false;
+    this.loginForm.reset();
+    this.lockLogin = false;
+  }
 }
