@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './header/registration/registration.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { zipDirective } from './header/registration/zipcode-dir';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { zipDirective } from './header/registration/zipcode-dir';
     BrowserAnimationsModule,
     MatButtonModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     NgbActiveModal,
