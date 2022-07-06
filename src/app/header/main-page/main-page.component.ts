@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { offerService } from 'src/app/offer-creation/offer-creation-service';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private offerService:offerService) { }
 
   ngOnInit(): void {
+    this.offerService.downloadOffers();
+
   }
 
 }

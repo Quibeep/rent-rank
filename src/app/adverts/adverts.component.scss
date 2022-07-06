@@ -1,16 +1,51 @@
-.fa-star, .fa-star-half-empty, .fa-star-o {
-  color: orange;
-}
-.book-rating {
-  min-width: 100px;
+// .fa-star, .fa-star-half-empty, .fa-star-o {
+//   color: orange;
+// }
+// .book-rating {
+//   min-width: 100px;
+// }
+
+// ngb-rating {
+//   color: #FFC107;
+//   font-size: 30px;
+// }
+
+img {
+  height: 200px;
+  width: 100%;
+
 }
 
-ngb-rating {
-  color: #FFC107;
-  font-size: 30px;
+.image {
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
 }
 
+.container:hover .image {
+  opacity: 0.3;
+}
 
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
 
 .card-end {
   display: flex;
@@ -18,12 +53,16 @@ ngb-rating {
 
 }
 
-.heart-end {
-  display: flex;
-  justify-content: flex-end;
-}
+// .heart-end {
+//   display: flex;
+//   justify-content: flex-end;
+// }
 
-#heart:hover {
-  cursor: pointer;
+// #heart:hover {
+//   cursor: pointer;
 
+// }
+
+.offers-inline {
+  display: inline
 }

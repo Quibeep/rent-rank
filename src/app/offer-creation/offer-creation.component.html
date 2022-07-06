@@ -5,68 +5,140 @@
         <h2>Tworzenie oferty</h2>
       </div>
       <hr>
+      <form [formGroup]="offerForm" (ngSubmit)="sendPost(offerForm.get('localization').value, offerForm.get('price').value, offerForm.get('rooms').value, offerForm.get('description').value, offerForm.get('picturePath1').value, offerForm.get('picturePath2').value, offerForm.get('picturePath3').value, offerForm.get('picturePath4').value, offerForm.get('picturePath5').value, offerForm.get('picturePath6').value, offerForm.get('picturePath7').value, offerForm.get('picturePath8').value)">
       <div class="form-group">
         <label for="neighborhood">Osiedle</label>
-        <input type="text" class="form-control form-control-sm" id="localization" placeholder="Pełna nazwa osiedla" [(ngModel)]="localization">
+        <input type="text" class="form-control form-control-sm" id="localization" placeholder="Pełna nazwa osiedla" formControlName="localization" >
         <small  class="form-text text-muted"></small>
         <div class="form-group">
           <label for="price" class="mt-3">Cena</label>
-          <input type="text" class="form-control form-control-sm" id="cost" placeholder="Wprowadź koszta wynajmu" [(ngModel)]="price">
+          <input type="text" class="form-control form-control-sm" id="cost" placeholder="Wprowadź koszta wynajmu" formControlName="price" >
           <small  class="form-text text-muted">Koszta całkowite za wynajem za miesiąc, mozna doprecyzowac w opisie oferty TUTAJ NGIF</small>
         </div>
         <label for="rooms" class="mt-3">Liczba pokoi</label>
-        <input type="text" class="form-control form-control-sm" id="rooms" placeholder="Wprowadź liczbę pokoi" [(ngModel)]="rooms">
+        <input type="text" class="form-control form-control-sm" id="rooms" placeholder="Wprowadź liczbę pokoi" formControlName="rooms" >
         <small  class="form-text text-muted"></small>
       </div>
       <div class="form-group">
-        <label for="rooms" class="mt-3">Zdjęcia</label>
-        <input type="text" class="form-control form-control-sm" id="pictures1" placeholder="Wprowadź ścieżkę URL dla zdjecia" [(ngModel)]="picture1" #p1>
-        <small  class="form-text text-muted">Przykład: https://live.staticflickr.com/3021/2315705263_31d3aa21ba_c.jpg</small>
-        <input type="text" class="form-control mt-2 form-control-sm" id="pictures2" placeholder="Wprowadź ścieżkę URL dla zdjecia" [(ngModel)]="picture2" #p2>
-        <input type="text" class="form-control mt-2 form-control-sm" id="pictures3" placeholder="Wprowadź ścieżkę URL dla zdjecia" [(ngModel)]="picture3" #p3>
-        <input type="text" class="form-control mt-2 form-control-sm" id="pictures4" placeholder="Wprowadź ścieżkę URL dla zdjecia" >
-        <input type="text" class="form-control mt-2 form-control-sm" id="pictures5" placeholder="Wprowadź ścieżkę URL dla zdjecia" >
-        <input type="text" class="form-control mt-2 form-control-sm" id="pictures6" placeholder="Wprowadź ścieżkę URL dla zdjecia" >
+        <label for="pictures" class="mt-3">Liczba Zdjęć:</label>
+        <div class="row">
+          <!-- ng switch uzalezniajacy URL input od radio -->
+          <label>1
+            <input type="radio" name="radio1" value="1" formControlName="radio1">
+            <span class="checkmark"></span>
+          </label>
+          <label >2
+            <input type="radio" name="radio1" value="2" formControlName="radio1">
+            <span class="checkmark"></span>
+          </label>
+          <label >3
+            <input type="radio" name="radio1"  value="3"formControlName="radio1">
+            <span class="checkmark"></span>
+          </label>
+          <label>4
+            <input type="radio" name="radio1" value="4" formControlName="radio1">
+            <span class="checkmark"></span>
+          </label>
+          <label>5
+            <input type="radio" name="radio1" value="5" formControlName="radio1">
+            <span class="checkmark"></span>
+          </label>
+          <label>6
+            <input type="radio" name="radio1" value="6" formControlName="radio1">
+            <span class="checkmark"></span>
+          </label>
+          <label>7
+            <input type="radio" name="radio1" value="7" formControlName="radio1">
+            <span class="checkmark"></span>
+          </label>
+          <label>8
+            <input type="radio" name="radio1" value="8"  formControlName="radio1">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div *ngIf="offerForm.get('radio1').value >= 1" >
+          <input type="text" class="form-control form-control-sm mt-3" id="pictures1" placeholder="Wprowadź ścieżkę URL dla zdjecia"  formControlName="picturePath1" >
+          <small  class="form-text text-muted">Przykład: https://live.staticflickr.com/3021/2315705263_31d3aa21ba_c.jpg</small>
+        </div>
+        <div *ngIf="offerForm.get('radio1').value >= 2" >
+          <input type="text" class="form-control mt-2 form-control-sm" id="pictures2" placeholder="Wprowadź ścieżkę URL dla zdjecia"  formControlName="picturePath2">
+        </div>
+        <div *ngIf="offerForm.get('radio1').value >= 3" >
+          <input type="text" class="form-control mt-2 form-control-sm" id="pictures3" placeholder="Wprowadź ścieżkę URL dla zdjecia"  formControlName="picturePath3">
+        </div>
+        <div *ngIf="offerForm.get('radio1').value >= 4" >
+          <input type="text" class="form-control mt-2 form-control-sm" id="pictures4" placeholder="Wprowadź ścieżkę URL dla zdjecia"  formControlName="picturePath4">
+        </div>
+        <div *ngIf="offerForm.get('radio1').value >= 5" >
+          <input type="text" class="form-control mt-2 form-control-sm" id="pictures5" placeholder="Wprowadź ścieżkę URL dla zdjecia"  formControlName="picturePath5">
+        </div>
+        <div *ngIf="offerForm.get('radio1').value >= 6" >
+          <input type="text" class="form-control mt-2 form-control-sm" id="pictures6" placeholder="Wprowadź ścieżkę URL dla zdjecia"  formControlName="picturePath6">
+        </div>
+        <div *ngIf="offerForm.get('radio1').value >= 7" >
+          <input type="text" class="form-control mt-2 form-control-sm" id="pictures7" placeholder="Wprowadź ścieżkę URL dla zdjecia"  formControlName="picturePath7">
+        </div>
+        <div *ngIf="offerForm.get('radio1').value >= 8" >
+          <input type="text" class="form-control mt-2 form-control-sm" id="pictures8" placeholder="Wprowadź ścieżkę URL dla zdjecia"  formControlName="picturePath8">
+        </div>
       </div>
       <div class="form-group">
         <label for="textArea" class="mt-3">Szczegółowy opis oferty</label>
-        <textarea class="form-control form-control-sm" id="textArea" rows="3" placeholder="Opis oferty" [(ngModel)]="description"></textarea>
+        <textarea class="form-control form-control-sm" id="description" rows="5" placeholder="Opis oferty" formControlName="description"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <button type="button" class="btn btn-secondary" (click)="onPreview(p1.value, p2.value, p3.value)">Podgląd</button>
+          <button type="submit" class="btn btn-primary buttons-space" [disabled]="!offerForm.valid" >Stwórz ofertę</button>
+          <button type="button" class="btn btn-secondary buttons-space" (click)="onPreview(offerForm.get('picturePath1').value, offerForm.get('picturePath2').value, offerForm.get('picturePath3').value, offerForm.get('picturePath4').value, offerForm.get('picturePath5').value, offerForm.get('picturePath6').value, offerForm.get('picturePath7').value, offerForm.get('picturePath8').value)">Podgląd</button>
+          <button type="button" class="btn btn-secondary buttons-space" (click)="checkData()" [routerLink]="['/my-profile']">Anuluj</button>
+    </form>
     </div>
     <div class="col-6">
-      <div class=" center">
+      <div class="center">
         <h2>Podgląd</h2>
       </div>
       <hr>
       <ngb-carousel *ngIf="pictures">
-        <ng-template ngbSlide>
+        <ng-template ngbSlide *ngIf="pictures[0]">
           <div class="picsum-img-wrapper">
             <img [src]="pictures[0]" alt="Random first slide" class="img-fluid">
           </div>
         </ng-template>
-        <ng-template ngbSlide>
+        <ng-template ngbSlide *ngIf="pictures[1]">
           <div class="picsum-img-wrapper">
             <img [src]="pictures[1]" alt="Random second slide" class="img-fluid">
           </div>
         </ng-template>
-        <ng-template ngbSlide>
+        <ng-template ngbSlide *ngIf="pictures[2]">
           <div class="picsum-img-wrapper">
             <img [src]="pictures[2]" alt="Random third slide" class="img-fluid">
           </div>
         </ng-template>
-        <ng-template ngbSlide *ngIf="pictures[3]">
+        <ng-template ngbSlide *ngIf="pictures[3]" >
           <div class="picsum-img-wrapper">
-            <img [src]="pictures[3]" alt="Random fourth slide">
+            <img [src]="pictures[3]" alt="Random fourth slide" class="img-fluid"  >
           </div>
         </ng-template>
         <ng-template ngbSlide *ngIf="pictures[4]">
           <div class="picsum-img-wrapper">
-            <img [src]="pictures[4]" alt="Random fifth slide">
+            <img [src]="pictures[4]" alt="Random fifth slide" class="img-fluid" >
+          </div>
+        </ng-template>
+        <ng-template ngbSlide *ngIf="pictures[5]">
+          <div class="picsum-img-wrapper">
+            <img [src]="pictures[5]" alt="Random sixth slide" class="img-fluid" >
+          </div>
+        </ng-template>
+        <ng-template ngbSlide *ngIf="pictures[6]">
+          <div class="picsum-img-wrapper">
+            <img [src]="pictures[6]" alt="Random seventh slide" class="img-fluid" >
+          </div>
+        </ng-template>
+        <ng-template ngbSlide *ngIf="pictures[7]">
+          <div class="picsum-img-wrapper">
+            <img [src]="pictures[7]" alt="Random eight slide" class="img-fluid" >
           </div>
         </ng-template>
       </ngb-carousel>
+
       <div class="form-group mt-2">
         <label class="mt-3">Lokalizacja: {{localization}} </label>
         <div class="form-group">
@@ -76,7 +148,7 @@
       </div>
       <div class="form-group">
         <label for="textArea" class="mt-3">Szczegółowy opis oferty</label>
-        <textarea class="form-control form-control-sm" id="textArea" rows="3" placeholder="Opis oferty" > {{description}}</textarea>
+        <textarea class="form-control form-control-sm" id="textArea" rows="3" placeholder="Opis oferty"> {{description}}</textarea>
       </div>
       <button type="button" class="btn btn-secondary" (click)="onExitPreview()">Wyjdź z podglądu</button>
     </div>

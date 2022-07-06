@@ -1,0 +1,22 @@
+.fa-star, .fa-star-half-empty, .fa-star-o {
+  color: orange;
+}
+.book-rating {
+  min-width: 100px;
+}
+
+ngb-rating {
+  color: #FFC107;
+  font-size: 30px;
+}
+
+
+.heart-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#heart:hover {
+  cursor: pointer;
+
+}

@@ -30,6 +30,7 @@ import { AdvertsComponent } from './adverts/adverts.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OfferCreationComponent } from './offer-creation/offer-creation.component';
 import { FormsModule } from '@angular/forms';
+import { StarsComponentComponent } from './adverts/stars-component/stars-component.component';
 
 
 
@@ -53,6 +54,7 @@ import { FormsModule } from '@angular/forms';
     MyProfileComponent,
     AdvertsComponent,
     OfferCreationComponent,
+    StarsComponentComponent,
   ],
   imports: [
     BrowserModule,

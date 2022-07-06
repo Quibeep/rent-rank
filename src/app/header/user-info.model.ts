@@ -6,5 +6,5 @@ export interface UserInfo {
   street: string;
   zipCode: string;
   userName: string;
-  imagePath?: string,
+  imagePath?: string;
 }

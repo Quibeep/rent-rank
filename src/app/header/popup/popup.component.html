@@ -30,7 +30,7 @@
             formControlName="userEmail"
             maxlength="26"
           />
-          <span *ngIf="!loginForm.get('loginData.userEmail').valid && loginForm.get('loginData.userEmail').touched" style="color: red;">*Pole jest wymagane</span>
+          <span *ngIf="loginForm.get('loginData.userEmail').touched && !loginForm.get('loginData.userEmail').valid" style="color: red;">*Wpisz poprawny adres e-mail jest</span>
         </div>
         <div class="col-2"></div>
       </div>
